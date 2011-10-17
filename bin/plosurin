@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+use v6;
+use Plosurin;
+
+if @*ARGS == 1 {
+my $data = slurp(@*ARGS[0]);
+my $plo =  Plosurin.new( :type('perl5'), :package('Test::Tmpl'));
+say $plo.parse($data).out_perl();
+} else {
+    die
+"Error: Need template file
+Usage:
+        $*PROGRAM_NAME <file>
+
+Expample:
+        $*PROGRAM_NAME test.soy > Tmpl.pm";
+
+}
+

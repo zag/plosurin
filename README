@@ -1,0 +1,22 @@
+Plosurin
+=====================
+
+Plosurin - Perl 6 implementation of Closure Templates
+
+USAGE
+
+    plosurin test.soy > Tmpl.pm
+
+DEPENDENCIES
+
+This module requires these other modules and libraries:
+
+ http://search.cpan.org/perldoc?Perl6::Pod
+
+COPYRIGHT AND LICENCE
+
+
+Copyright (C) 2011 by Zahatski Aliaksandr
+
+Plosurin is released under Artistic 2.0.
+
