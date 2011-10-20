@@ -1,5 +1,5 @@
 use v6;
-my $VERSION = '0.01';
+my $VERSION = '0.02';
 class Template {
     has $.namespace ;
     has @.params;
@@ -85,7 +85,7 @@ class Plo::Node {
 class Plo::raw_text is Plo::Node {
     has $.raw_text;
     method export_perl {
-    return '\'' ~ $.raw_text ~ '\'';
+    return $.raw_text;
     }
 }
 class Plo::command_print is Plo::Node {
@@ -98,8 +98,13 @@ class Plo::command_import is Plo::Node {
     return { self.WHAT.perl =>{ file=> $!file, rule=>$!rule}};    
  }
  method export_perl {
-    my $body = qqx% pod6xhtml  $!file%;
-    return $body
+  my $command = "pod6xhtml  -nb -t div -M Perl6::Pod::Lib -c \'=Include $!file";
+  if ( $!rule) {
+    $command ~= "\($!rule\)";
+  }
+  $command ~= "\'";
+  my $body = qqx% $command %;
+  return $body
  }
 }
 
@@ -126,7 +131,7 @@ class Plosurin::TActions {
         unless ( %attr{'file'}) {
             die  "Bad attr at: " ~ $/.CURSOR.pos ;
         }
-    make Plo::command_import.new( :file( %attr{'file'}), :rule(%attr{'rule'}));
+    make Plo::command_import.new( |%attr );
     }
 
     method tag ($/) {
@@ -205,7 +210,7 @@ class Plosurin {
     multi method out_perl { self.out_perl( $!parsed.ast.values)}
     multi method out_perl ( @templates ) {
         my $output = "
-# this is generated code
+# this is a generated code
 # Plosurin  ver. $VERSION
 package $!package;
 ";
