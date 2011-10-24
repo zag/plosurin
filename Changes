@@ -1,5 +1,7 @@
 Revision history for Plosurin.
 
+    * use utf8 pragma
+    * fix generate code for perl5 packages
 0.02 20 Oct 2011
     * impove {import} with 'rule' opt
     * some perl6 syntactic sugar

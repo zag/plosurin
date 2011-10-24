@@ -213,6 +213,7 @@ class Plosurin {
 # this is a generated code
 # Plosurin  ver. $VERSION
 package $!package;
+use utf8;
 ";
     for @templates -> $tmpl {
         my $sub_name = $!package ~ '::' ~ ($tmpl.namespace ~ $tmpl.name).subst(rx/\./, '_', :g);
@@ -221,11 +222,13 @@ package $!package;
         for $/.ast.values -> $cnt {
             $body ~= $cnt.export_perl()
        }
+        #escape \!
         $output ~=  "sub $sub_name \{
-        return q!$body!;
+        return q!" ~ $body.subst(rx/\!/,'\!',:g) ~ "!;
     \}
 ";
-   }  
+   }
+   $output ~= "\n 'Made by plosurin';";
    return $output;
   }
 }
