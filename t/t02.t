@@ -32,5 +32,5 @@ my $txt= '{namespace rname.sample}
 
 my $res = Plosurin::Grammar.parse($txt, :actions(Plosurin::Actions.new ));
 ok $res, 'grammar';
-is_deeply [$/.ast.values».WHAT».perl], ["Template", "Template", "Template"], 'objects';
+is-deeply [$/.ast.values».WHAT».perl], ["Template", "Template", "Template"], 'objects';
 

@@ -70,7 +70,7 @@ grammar Plosurin::Template {
     rule expression_list { [\w+] ** ',' }
     token variable { '$' \w+ }
 #    rule pair  { <string> ':'  <value>     }
-    rule attribute { (\w+) '=' '"' (<-['"']>+) '"' }
+    rule attribute { (\w+) '=' '"' (<-["]>+) '"' }
 
 }
 
