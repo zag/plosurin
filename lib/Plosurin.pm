@@ -67,10 +67,10 @@ grammar Plosurin::Template {
     rule command_import {
         'import'  <attribute> ** 1..2 }
     rule expression { [ \w+ ['=='||'<'||'>'] \w+ || <variable>] }
-    rule expression_list { [\w+] ** ',' }
+    rule expression_list { [\w+]* %% ',' }
     token variable { '$' \w+ }
 #    rule pair  { <string> ':'  <value>     }
-    rule attribute { (\w+) '=' '"' (<-['"']>+) '"' }
+    rule attribute { (\w+) '=' '"' (<-["]>+) '"' }
 
 }
 

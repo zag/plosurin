@@ -27,6 +27,6 @@ my @lexer_tests =
 
 for @lexer_tests -> $template, $check, $test_name {
     my $res = Plosurin::Template.parse($template,  :actions(Plosurin::TActions.new));
-    is_deeply [ $/.ast».dumper],$check, $test_name ?? $test_name !! $template;
+    is-deeply [ $/.ast».dumper],$check, $test_name ?? $test_name !! $template;
 }
 
